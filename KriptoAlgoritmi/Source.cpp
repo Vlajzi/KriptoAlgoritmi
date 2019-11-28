@@ -21,9 +21,9 @@ void main()
 
 	SimpleSub<char> test(26, abc, map);
 	
-	char* tmp = test.Encode("does this mean that a simple substitution chiper is secure", 59);
+	char* tmpp = test.Encode("does this mean that a simple substitution chiper is secure", 59);
 
-	cout << tmp << endl;
+	cout << tmpp << endl;
 	cout << "Test";
 
 
