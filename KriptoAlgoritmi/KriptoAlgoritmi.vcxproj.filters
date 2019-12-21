@@ -18,12 +18,33 @@
     <ClInclude Include="SimpleSub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XXTEA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PCBC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="knapsak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SHA2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimpleSubcpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XXTEA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PCBC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Knapsak.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
