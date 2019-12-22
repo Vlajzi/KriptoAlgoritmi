@@ -47,5 +47,8 @@
     <ClCompile Include="Knapsak.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SHA2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

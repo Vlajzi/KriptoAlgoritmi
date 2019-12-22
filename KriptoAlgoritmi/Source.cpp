@@ -4,6 +4,10 @@
 #include <iostream>
 #include <numeric>
 #include "Knapsak.h"
+#include "SHA2.h"
+
+
+
 
 using namespace std;
 
@@ -69,7 +73,7 @@ void main()
 	*/
 
 
-	Knapsak kp;
+	/*Knapsak kp;
 
 	txtr = (uint16_t*)kp.Encript((uint8_t*)txta,40);
 
@@ -78,7 +82,13 @@ void main()
 
 	txtb = (char*)kp.Decript(txtr, 40);
 
-	cout << txtb << endl;
+	cout << txtb << endl;*/
 
+	char* heh = "";
+
+	SHA2 sh;
+
+	uint32_t* rez = sh.GetHesh((uint8_t*)heh, strlen(heh));
+	
 	cout << "kraj";
 }
