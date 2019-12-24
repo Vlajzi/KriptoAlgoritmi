@@ -1,9 +1,10 @@
 #pragma once
 #include <cstdint>
-#pragma once
-#include "XXTEA.h"
+
 #include <stdlib.h>
 #include<string.h>
+#include "XXTEA.h"
+
 class PCBC
 {
 private:

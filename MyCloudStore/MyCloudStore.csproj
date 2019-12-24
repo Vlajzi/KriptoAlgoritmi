@@ -32,8 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KriptoAlgoritmi">
+    <Reference Include="KriptoAlgoritmi, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\x64\Release\KriptoAlgoritmi.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Feed1.cs" />
     <Compile Include="IFeed1.cs" />
+    <Compile Include="Proba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

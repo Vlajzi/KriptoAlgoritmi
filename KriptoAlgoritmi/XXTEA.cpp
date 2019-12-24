@@ -1,5 +1,6 @@
 #include "XXTEA.h"
 
+
 #define DELTA 0x9e3779b9
 #define MX (((z>>5^y<<2) + (y>>3^z<<4)) ^ ((sum^y) + (key[(p&3)^e] ^ z)))
 
@@ -11,8 +12,9 @@ XXTEA::XXTEA()
 void XXTEA::Function(uint32_t* v, int n, uint32_t const key[4])
 {
 
-        uint32_t y, z, sum;
-        unsigned p, rounds, e;
+    uint8_t* test = (uint8_t*)v;
+         uint32_t y, z, sum;
+        uint32_t p, rounds, e;
         if (n > 1) {          
             rounds = 6 + 52 / n;
             sum = 0;
@@ -56,5 +58,4 @@ void XXTEA::Decript(uint32_t* v, int n, uint32_t const key[4])
 {
     Function(v, -n, key);
 }
-
 

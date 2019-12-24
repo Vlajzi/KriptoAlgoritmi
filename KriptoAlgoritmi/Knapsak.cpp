@@ -1,5 +1,5 @@
 #include "Knapsak.h"
-
+using namespace Test;
 Knapsak::Knapsak()
 {
 	GenKey();

@@ -30,6 +30,9 @@
     <ClInclude Include="SHA2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HeaderExtern.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimpleSubcpp.cpp">

@@ -35,6 +35,7 @@ private:
 	int leftRotate(uint32_t n, uint32_t d);
 	int rightRotate(uint32_t n, uint32_t d);
 
+	void SvapBuffer(uint8_t* message, uint32_t size);
 
 	uint32_t BSIG0(uint32_t x);
 	uint32_t BSIG1(uint32_t x);

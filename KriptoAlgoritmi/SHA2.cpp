@@ -1,6 +1,7 @@
 #include "SHA2.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 uint32_t* SHA2::GetHesh(uint8_t* message, uint64_t lenght_inByte)//512 bits blok
 {
@@ -35,6 +36,11 @@ uint32_t* SHA2::GetHesh(uint8_t* message, uint64_t lenght_inByte)//512 bits blok
 
 	memcpy(&newMessage[lenght_inByte + tmp], &L, 8);
 
+	uint32_t test2 = ((uint32_t*)newMessage)[0];
+
+
+	//SvapBuffer(newMessage, bitLenght / 4);
+	test2 = ((uint32_t*)newMessage)[0];
 	uint32_t test = bitLenght % 64;
 	uint32_t chunkCnt = bitLenght / 64;
 
@@ -51,7 +57,7 @@ uint32_t* SHA2::GetHesh(uint8_t* message, uint64_t lenght_inByte)//512 bits blok
 	{
 		for (int j = 0; j < 16; j++)
 		{
-			W[j] = ((uint32_t*)newMessage)[i * 16 + j];//psvaki 512 bitni cank
+			W[j] = ((uint32_t*)newMessage)[i * 16 + j];//svaki 512 bitni cank
 		}
 
 		for (int j = 16; j < 64; j++)
@@ -120,6 +126,20 @@ int SHA2::leftRotate(uint32_t n, uint32_t d)
 int SHA2::rightRotate(uint32_t n, uint32_t d)
 {
 	return (n >> d) | (n << (INT_BITS - d));
+}
+
+void SHA2::SvapBuffer(uint8_t* message, uint32_t size)
+{
+	uint8_t tmp = 0;
+	for (int i = 0; i < size; i+=4)
+	{
+		tmp = message[i];
+		message[i] = message[i + 3];
+		message[i + 3] = tmp;
+		tmp = message[i + 1];
+		message[i + 1] = message[i + 2];
+		message[i + 2] = tmp;
+	}
 }
 
 uint32_t SHA2::BSIG0(uint32_t x)

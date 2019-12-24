@@ -5,6 +5,8 @@
 #include <numeric>
 #include "Knapsak.h"
 #include "SHA2.h"
+#include "HeaderExtern.h"
+
 
 
 
@@ -84,7 +86,7 @@ void main()
 
 	cout << txtb << endl;*/
 
-	char* heh = "";
+	char* heh = "grape";
 
 	SHA2 sh;
 
