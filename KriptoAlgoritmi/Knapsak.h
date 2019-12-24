@@ -10,7 +10,7 @@ namespace Test
 
 	class Knapsak
 	{
-	private:
+	public:
 		uint8_t PrivateKey[8];
 		unsigned int n;
 		uint16_t im;

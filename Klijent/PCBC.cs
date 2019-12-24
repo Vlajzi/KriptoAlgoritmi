@@ -7,23 +7,27 @@ using System.Threading.Tasks;
 
 namespace Klijent
 {
-    class XXTEA
+    class PCBC
     {
         private IntPtr referenca;
         public UInt32[] key { set; get; }
-        public XXTEA(UInt32[] key)
+        public unsafe PCBC(ref UInt32[] init,UInt32[] key)
         {
             this.key = key;
-            referenca = CreateXXTEA();
+            fixed (UInt32* refInti = &init[0])
+            {
+                referenca = CreatePCBC(refInti, init.Length);
+            }
+
         }
 
-        public unsafe void Encript( ref string data)
+        public unsafe void Encript(ref string data)
         {
             char[] proba = data.ToCharArray();
-          
+
             fixed (char* re = &proba[0])
             {
-                XXTEA_ENCRIPT(referenca, re, proba.Length / 2, key);
+                PCBC_Enkript(referenca, re, proba.Length / 2, key);
             }
 
             data = new string(proba);
@@ -36,7 +40,7 @@ namespace Klijent
 
             fixed (char* re = &proba[0])
             {
-                XXTEA_DECRIPT(referenca, re, proba.Length / 2, key);
+                PCBC_Decript(referenca, re, proba.Length / 2, key);
             }
 
             data = new string(proba);
@@ -44,13 +48,13 @@ namespace Klijent
         }
 
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern IntPtr CreateXXTEA();
+        private static unsafe extern IntPtr CreatePCBC(UInt32* init,int lenght);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void XXTEA_ENCRIPT( IntPtr obj, char* v, Int32 n, UInt32[] key);
+        private static unsafe extern void PCBC_Enkript(IntPtr obj, char* v, Int32 n, UInt32[] key);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void XXTEA_DECRIPT(IntPtr obj, char* v, Int32 n, UInt32[] key);
+        private static unsafe extern void PCBC_Decript(IntPtr obj, char* v, Int32 n, UInt32[] key);
 
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void DeleteXXTA(out IntPtr obj);
+        private static unsafe extern void DeletePCBC(out IntPtr obj);
     }
 }
