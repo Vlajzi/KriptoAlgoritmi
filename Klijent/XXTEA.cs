@@ -17,38 +17,37 @@ namespace Klijent
             referenca = CreateXXTEA();
         }
 
-        public unsafe void Encript( ref string data)
+        public unsafe void Encript( ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
-          
-            fixed (char* re = &proba[0])
+            //char[] proba = data.ToCharArray();
+            fixed (byte* re = &data[0])
             {
-                XXTEA_ENCRIPT(referenca, re, proba.Length / 2, key);
+                XXTEA_ENCRIPT(referenca, re, data.Length/4, key);
             }
 
-            data = new string(proba);
+ 
+         
             //System.GC.Collect();
         }
 
-        public unsafe void Decript(ref string data)
+        public unsafe void Decript(ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
+          
 
-            fixed (char* re = &proba[0])
+            fixed (byte* re = &data[0])
             {
-                XXTEA_DECRIPT(referenca, re, proba.Length / 2, key);
+                XXTEA_DECRIPT(referenca, re, data.Length/4, key);
             }
 
-            data = new string(proba);
 
         }
 
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern IntPtr CreateXXTEA();
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void XXTEA_ENCRIPT( IntPtr obj, char* v, Int32 n, UInt32[] key);
+        private static unsafe extern void XXTEA_ENCRIPT( IntPtr obj, byte* v, Int32 n, UInt32[] key);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void XXTEA_DECRIPT(IntPtr obj, char* v, Int32 n, UInt32[] key);
+        private static unsafe extern void XXTEA_DECRIPT(IntPtr obj, byte* v, Int32 n, UInt32[] key);
 
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern void DeleteXXTA(out IntPtr obj);

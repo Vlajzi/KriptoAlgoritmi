@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,12 @@ namespace MyCloudStore
 {
     class FileServer : IFileServer
     {
-        public string Direktorijum { get; set; }
-        public void DeleteFile(string virtualPath)
+
+
+        string conStr = "Server=DESKTOP-J6Q2652\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";
+        public void DeleteFile(string virtualPath,string username,string password)
         {
-            string filePath = Path.Combine(Direktorijum, virtualPath);
+            string filePath = Path.Combine("", virtualPath);
 
             if (File.Exists(filePath))
             {
@@ -20,9 +23,9 @@ namespace MyCloudStore
             }//odgovor treba
         }
 
-        public byte[] GetFile(string virtualPath)
+        public byte[] GetFile(string virtualPath, string username, string password)
         {
-            string filePath = Path.Combine(Direktorijum, virtualPath);
+            string filePath = Path.Combine("", virtualPath);
 
             if (!File.Exists(filePath))
                 throw new FileNotFoundException("File was not found",
@@ -33,12 +36,12 @@ namespace MyCloudStore
             return fajl;
         }
 
-        public StorageFileInfo[] List(string virtualPath)
+        public StorageFileInfo[] List(string virtualPath, string username, string password)
         {
-            string basePath = Direktorijum;
+            string basePath = "";
 
             if (!string.IsNullOrEmpty(virtualPath))
-                basePath = Path.Combine(Direktorijum, virtualPath);
+                basePath = Path.Combine("", virtualPath);
 
             DirectoryInfo dirInfo = new DirectoryInfo(basePath);
             FileInfo[] files = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
@@ -48,20 +51,83 @@ namespace MyCloudStore
                     {
                         Size = f.Length,
                         VirtualPath = f.FullName.Substring(
-                          f.FullName.IndexOf(Direktorijum) +
-                          Direktorijum.Length + 1)
+                          f.FullName.IndexOf("") +
+                          "".Length + 1)
                     }).ToArray();
         }
 
-        public void PutFile(FileUploadMessage msg)
+        public void PutFile(FileUpload file, string username, string password)
         {
-            string filePath = Path.Combine(Direktorijum, msg.VirtualPath);
+            int id = -1;
+            string initPath = GetUSerDir(username, password,ref id);
+            
+            string filePath = Path.Combine(initPath, file.info.VirtualPath);
             string dir = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            File.WriteAllBytes(filePath, msg.DataStream);
+            File.WriteAllBytes(filePath, file.Data);
+
+
+            UpdateDB(ref file, id);
+
+        }
+
+
+        private string GetUSerDir(string username,string password,ref int id)
+        {
+            string s = string.Empty;
+
+           //treba iz appconfig
+            SqlConnection con = new SqlConnection(conStr);
+            try
+            {
+                SqlCommand com = con.CreateCommand();
+                com.CommandText = "SELECT * from [Zastita].[dbo].[User] WHERE username='" + username + "' AND password = '" + password + "';";
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                rd.Read();
+                s = rd["filePath"].ToString();
+                id = Convert.ToInt32(rd["id"].ToString());
+
+            }
+            catch (Exception e)
+            {
+                
+            }
+            finally
+            {
+                con.Close();
+
+            }
+
+            return s;
+        }
+
+        private void UpdateDB(ref FileUpload file,int id)
+        {
+            string updateString = "INSERT INTO [Zastita].[dbo].[Files] ( virtualPath, Hesh, U_ID )"+ 
+                "VALUES ('"+ file.info.VirtualPath+"','"+file.Hesh+"' ,"+id+" )";
+
+            SqlConnection con = new SqlConnection(conStr);
+            try
+            {
+                SqlCommand com = con.CreateCommand();
+                com.CommandText = updateString;
+                con.Open();
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
 
         }
     }

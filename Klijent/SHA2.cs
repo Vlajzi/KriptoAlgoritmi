@@ -15,13 +15,13 @@ namespace Klijent
             referenca = CreateSHA2();
         }
 
-        public unsafe string GetHesh(ref string data)
+        public unsafe string GetHesh(ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
+           
             UInt32* tmp;
-            fixed (char* re = &proba[0])
+            fixed (byte* re = &data[0])
             {
-               tmp = SHA2_GenHesh(referenca, re, proba.Length *2);
+               tmp = SHA2_GenHesh(referenca, re, data.Length);
             }
 
             string rez = string.Empty;
@@ -42,7 +42,7 @@ namespace Klijent
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern IntPtr CreateSHA2();
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern UInt32* SHA2_GenHesh(IntPtr obj, char* v, Int64 n);
+        private static unsafe extern UInt32* SHA2_GenHesh(IntPtr obj, byte* v, Int64 n);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern void DeleteSHA2(out IntPtr obj);
     }

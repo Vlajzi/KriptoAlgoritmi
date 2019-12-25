@@ -3,18 +3,19 @@
 
 #include<stdlib.h>
 #include<string.h>
+#include <cstdint>
 
 
-template <class T>
 class SimpleSub
 {
 private:
-	T* charString;
-	T* charMap;
+	uint16_t* charString;
+	uint16_t* charMap;
 	unsigned long lenght;
 
 
-	T find(T data);
+	uint16_t find(uint16_t data);
+	uint16_t findD(uint16_t data);
 	SimpleSub() = delete;
 
 
@@ -22,52 +23,15 @@ private:
 	
 
 public:
-	SimpleSub(unsigned short Lenght,T* String,T* Map );
+	SimpleSub(unsigned short Lenght, uint16_t* String, uint16_t* Map );
 	
 
-	T*  Encode(T* string,unsigned long lenght);
+	uint16_t*  Encode(uint16_t* string,unsigned long lenght);
+	uint16_t* Decode(uint16_t* string, unsigned long lenght);
+
 
 };
 
 
 
 
-template <class T>
-SimpleSub<T>::SimpleSub(unsigned short Lenght, T* String, T* Map)
-{
-	this->charString = (T*)malloc(Lenght*sizeof(T));
-	this->charMap = (T*)malloc(Lenght*sizeof(T));
-
-	memcpy(this->charString, String, Lenght*sizeof(T));
-	memcpy(this->charMap, Map, Lenght*sizeof(T));
-
-	this->lenght = Lenght;
-}
-
-template <class T>
-T*  SimpleSub<T>::Encode(T* string, unsigned long lenght)
-{
-	T* data = (T*)malloc(lenght*sizeof(T));
-	memcpy(data, string, lenght*sizeof(T));
-
-	for (int i = 0; i < lenght; i++)
-	{
-		data[i] = this->find(data[i]);
-	}
-
-	return data;
-}
-
-template <class T>
-T SimpleSub<T>::find(T data)
-{
-	for (int i = 0; i < this->lenght; i++)
-	{
-		if (data == this->charString[i])
-		{
-			return this->charMap[i];
-		}
-	}
-
-	return data;
-}

@@ -12,15 +12,15 @@ namespace MyCloudStore
     interface IFileServer
     {
         [OperationContract]
-        byte[] GetFile(string virtualPath);//Stream?
+        byte[] GetFile(string virtualPath, string username, string password);//Stream?
         [OperationContract]
-        void PutFile(FileUploadMessage msg);
+        void PutFile(FileUpload file, string username, string password);
 
         [OperationContract]
-        void DeleteFile(string virtualPath);
+        void DeleteFile(string virtualPath, string username, string password);
 
         [OperationContract]
-        StorageFileInfo[] List(string virtualPath);
+        StorageFileInfo[] List(string virtualPath, string username, string password);
 
     }
 }

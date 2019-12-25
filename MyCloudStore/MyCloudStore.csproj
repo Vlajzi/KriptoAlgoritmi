@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.IdentityModel" />
@@ -46,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileServer.cs" />
-    <Compile Include="FileUploadMessage.cs" />
+    <Compile Include="FileUpload.cs" />
     <Compile Include="IFileServer.cs" />
+    <Compile Include="ILoginChk.cs" />
     <Compile Include="IService1.cs" />
+    <Compile Include="LoginChk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service1.cs" />
     <Compile Include="StorageFileInfo.cs" />
@@ -56,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="sqlBaza.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

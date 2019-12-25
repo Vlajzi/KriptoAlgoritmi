@@ -1,11 +1,10 @@
 #include "Knapsak.h"
-using namespace Test;
 Knapsak::Knapsak()
 {
 	GenKey();
 }
 
-void Knapsak::SetKey(uint16_t PublicKey[8], uint8_t PrivateKey[8], uint32_t n, uint16_t im)
+void Knapsak::SetKey(uint16_t PublicKey[8], uint16_t PrivateKey[8], uint32_t n, uint16_t im)
 {
 	this->im = im;
 	for (int i = 0; i < 8; i++)
@@ -149,6 +148,26 @@ uint8_t* Knapsak::Decript(uint16_t* stream, uint64_t lenght)
 
 	rez[lenght] = '\0';
 	return rez;
+}
+
+uint16_t* Knapsak::GetPublicKey()
+{
+	return PublicKey;
+}
+
+uint16_t* Knapsak::GetPrivateKey()
+{
+	return PrivateKey;
+}
+
+uint64_t Knapsak::Get_N()
+{
+	return n;
+}
+
+uint16_t Knapsak::Get_iM()
+{
+	return im;
 }
 
 

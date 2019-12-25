@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KriptoAlgoritmi", "KriptoAlgoritmi\KriptoAlgoritmi.vcxproj", "{8EB17D28-F3F2-4A8E-A171-E4FE27BB37B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klijent", "Klijent\Klijent.csproj", "{E1C984E5-0A41-40AD-8DB7-AC04C761EE82}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD4F2573-34B5-460D-8582-D92C20941A78} = {CD4F2573-34B5-460D-8582-D92C20941A78}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCloudStore", "MyCloudStore\MyCloudStore.csproj", "{CD4F2573-34B5-460D-8582-D92C20941A78}"
 EndProject

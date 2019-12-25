@@ -28,11 +28,8 @@ void main()
 	
 	map = "ZPBYJRGKFLXQNWVDHMSUTOIAEC";
 
-	SimpleSub<char> test(26, abc, map);
-	
-	char* tmpp = test.Encode("does this mean that a simple substitution chiper is secure", 59);
 
-	cout << tmpp << endl;
+
 	cout << "Test";
 
 
