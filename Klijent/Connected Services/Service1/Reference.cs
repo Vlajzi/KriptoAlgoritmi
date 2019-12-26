@@ -34,10 +34,10 @@ namespace Klijent.Service1 {
         System.Threading.Tasks.Task DeleteFileAsync(string virtualPath, string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFileServer/List", ReplyAction="http://tempuri.org/IFileServer/ListResponse")]
-        MyCloudStore.StorageFileInfo[] List(string virtualPath, string username, string password);
+        MyCloudStore.StorageFileInfo[] List(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFileServer/List", ReplyAction="http://tempuri.org/IFileServer/ListResponse")]
-        System.Threading.Tasks.Task<MyCloudStore.StorageFileInfo[]> ListAsync(string virtualPath, string username, string password);
+        System.Threading.Tasks.Task<MyCloudStore.StorageFileInfo[]> ListAsync(string username, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -91,12 +91,12 @@ namespace Klijent.Service1 {
             return base.Channel.DeleteFileAsync(virtualPath, username, password);
         }
         
-        public MyCloudStore.StorageFileInfo[] List(string virtualPath, string username, string password) {
-            return base.Channel.List(virtualPath, username, password);
+        public MyCloudStore.StorageFileInfo[] List(string username, string password) {
+            return base.Channel.List(username, password);
         }
         
-        public System.Threading.Tasks.Task<MyCloudStore.StorageFileInfo[]> ListAsync(string virtualPath, string username, string password) {
-            return base.Channel.ListAsync(virtualPath, username, password);
+        public System.Threading.Tasks.Task<MyCloudStore.StorageFileInfo[]> ListAsync(string username, string password) {
+            return base.Channel.ListAsync(username, password);
         }
     }
 }

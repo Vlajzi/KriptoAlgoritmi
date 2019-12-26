@@ -15,6 +15,7 @@ namespace MyCloudStore
         string conStr = "Server=DESKTOP-J6Q2652\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";
         public void DeleteFile(string virtualPath,string username,string password)
         {
+            
             string filePath = Path.Combine("", virtualPath);
 
             if (File.Exists(filePath))
@@ -25,7 +26,9 @@ namespace MyCloudStore
 
         public byte[] GetFile(string virtualPath, string username, string password)
         {
-            string filePath = Path.Combine("", virtualPath);
+            int id = -1;
+            string basePath = GetUSerDir(username, password, ref id);
+            string filePath = Path.Combine(basePath, virtualPath);
 
             if (!File.Exists(filePath))
                 throw new FileNotFoundException("File was not found",
@@ -36,24 +39,44 @@ namespace MyCloudStore
             return fajl;
         }
 
-        public StorageFileInfo[] List(string virtualPath, string username, string password)
+        public StorageFileInfo[] List( string username, string password)
         {
-            string basePath = "";
+            int id = -1;
+            string basePath = GetUSerDir(username, password, ref id);
 
-            if (!string.IsNullOrEmpty(virtualPath))
-                basePath = Path.Combine("", virtualPath);
+            //DirectoryInfo dirInfo = new DirectoryInfo(basePath);
+            //FileInfo[] files = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
 
-            DirectoryInfo dirInfo = new DirectoryInfo(basePath);
-            FileInfo[] files = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            List<StorageFileInfo> rez = new List<StorageFileInfo>();
+            SqlConnection con = new SqlConnection(conStr);
+            try
+            {
+                SqlCommand com = con.CreateCommand();
+                com.CommandText = "SELECT * from [Zastita].[dbo].[Files] WHERE U_ID= "+id+";";
+                con.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                while(rd.Read())
+                {
+                    StorageFileInfo tmp = new StorageFileInfo();
+                    tmp.hesh = rd["Hesh"].ToString();
+                    tmp.VirtualPath = rd["virtualPath"].ToString();
+                    string path = Path.Combine(basePath, tmp.VirtualPath);
+                    tmp.Size =(new FileInfo(path)).Length;
+                    rez.Add(tmp);
+                }
 
-            return (from f in files
-                    select new StorageFileInfo()
-                    {
-                        Size = f.Length,
-                        VirtualPath = f.FullName.Substring(
-                          f.FullName.IndexOf("") +
-                          "".Length + 1)
-                    }).ToArray();
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+
+            }
+
+            return rez.ToArray();
         }
 
         public void PutFile(FileUpload file, string username, string password)
@@ -84,10 +107,10 @@ namespace MyCloudStore
             try
             {
                 SqlCommand com = con.CreateCommand();
-                com.CommandText = "SELECT * from [Zastita].[dbo].[User] WHERE username='" + username + "' AND password = '" + password + "';";
+                com.CommandText = "SELECT * from [Zastita].[dbo].[User] WHERE username='" + username + "' AND password ='" + password + "';";
                 con.Open();
                 SqlDataReader rd = com.ExecuteReader();
-                rd.Read();
+                bool test = rd.Read();
                 s = rd["filePath"].ToString();
                 id = Convert.ToInt32(rd["id"].ToString());
 

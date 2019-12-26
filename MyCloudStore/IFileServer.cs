@@ -20,7 +20,7 @@ namespace MyCloudStore
         void DeleteFile(string virtualPath, string username, string password);
 
         [OperationContract]
-        StorageFileInfo[] List(string virtualPath, string username, string password);
+        StorageFileInfo[] List( string username, string password);
 
     }
 }

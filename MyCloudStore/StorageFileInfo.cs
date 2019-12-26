@@ -9,6 +9,9 @@ namespace MyCloudStore
         public long Size { get;  set; }
         [DataMember]
         public string VirtualPath { get; set; }
+        [DataMember]
+        public string hesh { get; set; }
+
         public override string ToString()
         {
             return string.Format(VirtualPath + "\t\t" + Size + "\t\t");

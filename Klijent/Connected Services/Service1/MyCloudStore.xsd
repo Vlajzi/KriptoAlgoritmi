@@ -3,14 +3,13 @@
   <xs:complexType name="FileUpload">
     <xs:sequence>
       <xs:element minOccurs="0" name="Data" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Hesh" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="info" nillable="true" type="tns:StorageFileInfo" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FileUpload" nillable="true" type="tns:FileUpload" />
   <xs:complexType name="StorageFileInfo">
     <xs:sequence>
-      <xs:element minOccurs="0" name="EncMetod" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Encription" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Size" type="xs:long" />
       <xs:element minOccurs="0" name="VirtualPath" nillable="true" type="xs:string" />
     </xs:sequence>

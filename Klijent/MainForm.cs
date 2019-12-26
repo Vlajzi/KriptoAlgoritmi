@@ -54,6 +54,8 @@ namespace Klijent
             numb_XXTEA_3.Maximum = UInt32.MaxValue;
             numb_XXTEA_4.Maximum = UInt32.MaxValue;
 
+            
+
         }
 
         private unsafe void button1_Click(object sender, EventArgs e)
@@ -110,28 +112,19 @@ namespace Klijent
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            GetFiles();
         }
 
 
 
         private void GetFiles()
         {
-            List<StorageFileInfo> putanje = new List<StorageFileInfo>();
+            List<StorageFileInfo> putanje ;
 
 
-            string[] paths = Directory.GetFiles(pathTmp);
+            FileServerClient fs = new FileServerClient();
 
-            foreach(string s in paths)
-            {
-                StorageFileInfo inf = new StorageFileInfo();
-                var stmp = new FileInfo(s);
-
-                inf.Size = stmp.Length;               
-                inf.VirtualPath = stmp.Name;
-
-                putanje.Add(inf);
-            }
+            putanje = fs.List(userName,userPassword).ToList();
 
             listBox1.DataSource = putanje;
 
@@ -145,9 +138,27 @@ namespace Klijent
             {
                 //getFile the sav the open
 
+                FileServerClient sf = new FileServerClient();
+
+                
+
                 string file = ((StorageFileInfo)listBox1.Items[index]).VirtualPath;
-                //textBox1.Text = file;
-                System.Diagnostics.Process.Start(pathTmp+"\\"+file);//tmp path
+                string hesh = ((StorageFileInfo)listBox1.Items[index]).hesh;
+
+                byte[] data = sf.GetFile(file, userName, userPassword);
+
+                string temPath = Path.GetTempPath();
+                string filePath = Path.Combine(temPath, file);
+
+                bool state = DecriptXXTEA(ref data, hesh, file);
+
+                if (state)
+                {
+                    File.WriteAllBytes(filePath, data);
+
+                    System.Diagnostics.Process.Start(filePath);//tmp path
+                }
+                
             }
         }
 
@@ -195,6 +206,9 @@ namespace Klijent
 
 
             }
+
+            GetFiles();
+
         }
 
         private void UploadXXTEA(byte[] ulaz,string hesh,string filepath)
@@ -224,6 +238,30 @@ namespace Klijent
 
             sc.PutFile(f, userName, userPassword);
 
+        }
+
+        private bool DecriptXXTEA(ref byte[] data, string hesh, string filepath)
+        {
+            bool tru = false;
+            uint[] key = new uint[4];
+            key[0] = Convert.ToUInt32((numb_XXTEA_1.Value));
+            key[1] = Convert.ToUInt32((numb_XXTEA_2.Value));
+            key[2] = Convert.ToUInt32((numb_XXTEA_3.Value));
+            key[3] = Convert.ToUInt32((numb_XXTEA_4.Value));
+
+            XXTEA tmp = new XXTEA(key);
+
+            tmp.Decript(ref data);
+
+            string h = sha2.GetHesh(ref data);
+
+            if(String.Equals(h,hesh))
+            {
+                tru = true;
+            }
+
+            return tru;
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
