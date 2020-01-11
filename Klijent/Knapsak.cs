@@ -55,6 +55,42 @@ namespace Klijent
 
         }
 
+        public unsafe void GetKey(ref UInt16[] Public,ref UInt16[] Private,ref UInt32 N,ref UInt16 im)
+        {
+            UInt16* pub;
+            UInt16* pr;
+
+            pr = GetPrivateKey(referenca);
+            pub = GetPublicKey(referenca);
+
+            UInt16[] javni = new UInt16[8];
+            UInt16[] privatni = new UInt16[8];
+
+
+            for (int i = 0;i < 8;i++)
+            {
+                javni[i] = pub[i];
+                privatni[i] = pr[i];
+            }
+
+            Public = javni;
+            Private = privatni;
+
+            N = Get_N(referenca);
+            im = Get_iM(referenca);
+        }
+
+        public unsafe void SetKey(ref UInt16[] Public, ref UInt16[] Private, ref UInt32 N, ref UInt16 im)
+        {
+            fixed(UInt16* r1 = &Public[0])
+            {
+                fixed(UInt16* r2 = &Private[0])
+                {
+                    Knapsak_SetKey(referenca, r1, r2, N, im);
+                }
+            }
+        }
+
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern IntPtr CreateKnapsak();
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
@@ -64,13 +100,13 @@ namespace Klijent
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern void DeleteKnapsak(out IntPtr obj);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void Knapsak_SetKey(IntPtr obj, UInt16[] PublicKey, UInt16[] PrivateKey, UInt32 n, UInt16 im);
+        private static unsafe extern void Knapsak_SetKey(IntPtr obj, UInt16* PublicKey, UInt16* PrivateKey, UInt32 n, UInt16 im);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern UInt16[] GetPublicKey(IntPtr obj);
+        private static unsafe extern UInt16* GetPublicKey(IntPtr obj);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern UInt16[] GetPrivateKey(IntPtr obj);
+        private static unsafe extern UInt16* GetPrivateKey(IntPtr obj);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern UInt64 Get_N(IntPtr obj);
+        private static unsafe extern UInt32 Get_N(IntPtr obj);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern UInt16 Get_iM(IntPtr obj);
 

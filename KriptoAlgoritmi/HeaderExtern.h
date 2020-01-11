@@ -26,9 +26,9 @@ extern "C"  __declspec(dllexport)  uint32_t* __cdecl  SHA2_GenHesh(SHA2 * ref, u
 extern "C" __declspec(dllexport)  void  __cdecl DeleteSHA2(SHA2 * a) { a->~SHA2(); a = nullptr; };
 
 //SimpleSub
-extern  "C"  __declspec(dllexport)  SimpleSub * __cdecl CreateSimpleSub(uint64_t lenght,uint16_t* alfabet,uint16_t* key) { return new SimpleSub(lenght,alfabet,key); };
-extern "C"  __declspec(dllexport)  uint16_t * __cdecl  SimpleSub_Encript(SimpleSub * ref, uint16_t * string, uint64_t lenght) { return ref->Encode(string, lenght); };
-extern "C"  __declspec(dllexport)  uint16_t * __cdecl  SimpleSub_Decript(SimpleSub * ref, uint16_t * string, uint64_t lenght) { return ref->Decode(string, lenght); };
+extern  "C"  __declspec(dllexport)  SimpleSub * __cdecl CreateSimpleSub(uint64_t lenght, uint8_t* alfabet, uint8_t* key) { return new SimpleSub(lenght,alfabet,key); };
+extern "C"  __declspec(dllexport)  uint8_t * __cdecl  SimpleSub_Encript(SimpleSub * ref, uint8_t * string, uint64_t lenght) { return ref->Encode(string, lenght); };
+extern "C"  __declspec(dllexport)  uint8_t * __cdecl  SimpleSub_Decript(SimpleSub * ref, uint8_t * string, uint64_t lenght) { return ref->Decode(string, lenght); };
 extern "C" __declspec(dllexport)  void  __cdecl DeleteSimpleSub(SimpleSub * a) { a->~SimpleSub(); a = nullptr; };
 
 

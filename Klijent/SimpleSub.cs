@@ -10,48 +10,55 @@ namespace Klijent
     class SimpleSub
     {
         private IntPtr referenca;
-        public unsafe SimpleSub(UInt64 lenght,string azbuka,string key)
+        public unsafe SimpleSub(UInt64 lenght,byte[] azbuka, byte[] key)
         {
-            char[] probaA = azbuka.ToCharArray();
-            char[] probaK = key.ToCharArray();
+           
 
-            fixed (char* reA = &probaA[0])
+            fixed (byte* reA = &azbuka[0])
             {
-                fixed (char* reK = &probaA[0])
+                fixed (byte* reK = &key[0])
                 {
                     referenca = CreateSimpleSub(lenght,reA,reK);
                 }
             }
         }
 
-        public unsafe string Encript(ref string data)
+        public unsafe byte[] Encript(ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
-            char* tmp;
-            fixed (char* re = &proba[0])
+            byte* tmp;
+            byte[] nov;
+            fixed (byte* re = &data[0])
             {
-                tmp = SimpleSub_Encript(referenca, re, proba.Length);
+                tmp = SimpleSub_Encript(referenca, re, data.Length);
+                nov = new byte[data.Length];
+                for (int i = 0; i < data.Length; i++)
+                {
+                    nov[i] = tmp[i];
+                }
             }
 
-            string rez = new string(tmp);
 
-            return rez;
+            return nov;
 
             //System.GC.Collect();
         }
 
-        public unsafe string Decript(ref string data)
+        public unsafe byte[] Decript(ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
-            char* tmp;
-            fixed (char* re = &proba[0])
+
+            byte* tmp;
+            byte[] nov;
+            fixed (byte* re = &data[0])
             {
-                tmp = SimpleSub_Decript(referenca, re, proba.Length);
+                tmp = SimpleSub_Decript(referenca, re, data.Length);
+                nov = new byte[data.Length];
+                for (int i = 0; i < data.Length ; i++)
+                {
+                    nov[i] = tmp[i];
+                }
             }
 
-            string rez = new string(tmp);
-
-            return rez;
+            return nov;
 
             //System.GC.Collect();
         }
@@ -60,11 +67,11 @@ namespace Klijent
 
         //c++ funkcije
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern IntPtr CreateSimpleSub(UInt64 duzina, char* azbuka,char* kljuc);
+        private static unsafe extern IntPtr CreateSimpleSub(UInt64 duzina, byte* azbuka, byte* kljuc);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern char* SimpleSub_Encript(IntPtr obj, char* v, Int64 n);
+        private static unsafe extern byte* SimpleSub_Encript(IntPtr obj, byte* v, Int64 n);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern char* SimpleSub_Decript(IntPtr obj, char* v, Int64 n);
+        private static unsafe extern byte* SimpleSub_Decript(IntPtr obj, byte* v, Int64 n);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern void DeleteSimpleSub(out IntPtr obj);
      

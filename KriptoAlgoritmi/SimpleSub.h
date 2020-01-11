@@ -9,13 +9,13 @@
 class SimpleSub
 {
 private:
-	uint16_t* charString;
-	uint16_t* charMap;
+	uint8_t* charString;
+	uint8_t* charMap;
 	unsigned long lenght;
 
 
-	uint16_t find(uint16_t data);
-	uint16_t findD(uint16_t data);
+	uint8_t find(uint8_t data);
+	uint8_t findD(uint8_t data);
 	SimpleSub() = delete;
 
 
@@ -23,11 +23,11 @@ private:
 	
 
 public:
-	SimpleSub(unsigned short Lenght, uint16_t* String, uint16_t* Map );
+	SimpleSub(unsigned short Lenght, uint8_t* String, uint8_t* Map );
 	
 
-	uint16_t*  Encode(uint16_t* string,unsigned long lenght);
-	uint16_t* Decode(uint16_t* string, unsigned long lenght);
+	uint8_t*  Encode(uint8_t* string,unsigned long lenght);
+	uint8_t* Decode(uint8_t* string, unsigned long lenght);
 
 
 };

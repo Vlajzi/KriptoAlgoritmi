@@ -34,10 +34,10 @@ bool PCBC::Enkript(uint32_t* v, int n, uint32_t const key[4])
 
 	memcpy(xorVector, initialVektor, blokSize);
 
-	if (n % lenght != 0)
+	/*if (n % lenght != 0)
 	{
 		return false;
-	}
+	}*/
 	for (int i = 0; i < n; i+=lenght)
 	{
 
@@ -80,10 +80,10 @@ bool PCBC::Decript(uint32_t* v, int n, uint32_t const key[4])
 
 	memcpy(xorVector, initialVektor, blokSize);
 
-	if (n % lenght != 0)
+	/*if (n % lenght != 0)
 	{
 		return false;
-	}
+	}*/
 	for (int i = 0; i < n; i += lenght)
 	{
 

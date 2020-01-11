@@ -45,6 +45,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_PCPInitial = new System.Windows.Forms.TextBox();
+            this.txt_ALFA = new System.Windows.Forms.TextBox();
+            this.txt_SubKey = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numb_XXTEA_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numb_XXTEA_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numb_XXTEA_3)).BeginInit();
@@ -56,9 +60,9 @@
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.Location = new System.Drawing.Point(495, 12);
+            this.listBox1.Location = new System.Drawing.Point(481, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(293, 420);
+            this.listBox1.Size = new System.Drawing.Size(307, 420);
             this.listBox1.TabIndex = 2;
             this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
@@ -170,18 +174,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(16, 113);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 15;
-            this.label4.Text = "XXTEA key";
+            this.label4.Text = "XXTEA key:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(19, 163);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 13);
+            this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 17;
-            this.label5.Text = "PCBC Initial";
+            this.label5.Text = "PCBC Initial:";
             // 
             // txt_PCPInitial
             // 
@@ -191,11 +195,49 @@
             this.txt_PCPInitial.Size = new System.Drawing.Size(310, 20);
             this.txt_PCPInitial.TabIndex = 18;
             // 
+            // txt_ALFA
+            // 
+            this.txt_ALFA.Location = new System.Drawing.Point(22, 242);
+            this.txt_ALFA.Name = "txt_ALFA";
+            this.txt_ALFA.ReadOnly = true;
+            this.txt_ALFA.Size = new System.Drawing.Size(310, 20);
+            this.txt_ALFA.TabIndex = 19;
+            // 
+            // txt_SubKey
+            // 
+            this.txt_SubKey.Location = new System.Drawing.Point(22, 309);
+            this.txt_SubKey.Name = "txt_SubKey";
+            this.txt_SubKey.ReadOnly = true;
+            this.txt_SubKey.Size = new System.Drawing.Size(310, 20);
+            this.txt_SubKey.TabIndex = 20;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 226);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "ALFABET:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(19, 293);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "SubKey:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txt_SubKey);
+            this.Controls.Add(this.txt_ALFA);
             this.Controls.Add(this.txt_PCPInitial);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -243,6 +285,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_PCPInitial;
+        private System.Windows.Forms.TextBox txt_ALFA;
+        private System.Windows.Forms.TextBox txt_SubKey;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

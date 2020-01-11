@@ -20,7 +20,8 @@ namespace MyCloudStore
                 return false;
             }
             //string conStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
-            string conStr = "Server=DESKTOP-J6Q2652\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";//treba iz appconfig
+            string conStr = "Server=KORISNIK-PC\\SQLEXPRESS;Trusted_Connection=True;";//treba iz appconfig al me mrzi
+
             SqlConnection con = new SqlConnection(conStr);
             try
             {

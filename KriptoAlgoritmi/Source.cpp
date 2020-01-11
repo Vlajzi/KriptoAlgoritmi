@@ -46,21 +46,21 @@ void main()
 
 	//txta = "Test 1 2 3. Koder Blokag"; // ne moze
 	cout << endl;
-	strcpy(txta, "Test 1 2 3. Koder Blokag kako bre to890K");
-	/*cout << txta << endl;
+	strcpy(txta, "Ovo je radi provere da se nije ostetio fajl sa informacijama o kljucevima");//73
+	cout << txta << endl;
 	uint32_t initial[2] = {1232322,4132244};
 
 	PCBC proba(initial,2);
 
-	proba.Enkript((uint32_t*)txta, 10, key);
+	proba.Enkript((uint32_t*)txta, 73/4, key);
 
 	cout << txta << endl;
 
-	proba.Decript((uint32_t*)txta, 10, key);
+	proba.Decript((uint32_t*)txta, 73/4, key);
 
 	cout << txta << endl; 
 
-
+	/*
 	xt.Encript((uint32_t*)txta,10,key);
 
 	cout << txta << endl;

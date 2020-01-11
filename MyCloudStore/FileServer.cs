@@ -12,7 +12,7 @@ namespace MyCloudStore
     {
 
 
-        string conStr = "Server=DESKTOP-J6Q2652\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";
+        string conStr = "Server=KORISNIK-PC\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";
         public void DeleteFile(string virtualPath,string username,string password)
         {
             

@@ -21,38 +21,37 @@ namespace Klijent
 
         }
 
-        public unsafe void Encript(ref string data)
+        public unsafe void Encript(ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
+  
 
-            fixed (char* re = &proba[0])
+            fixed (byte* re = &data[0])
             {
-                PCBC_Enkript(referenca, re, proba.Length / 2, key);
+                PCBC_Enkript(referenca, re, data.Length/4 , key);
             }
 
-            data = new string(proba);
+           
             //System.GC.Collect();
         }
 
-        public unsafe void Decript(ref string data)
+        public unsafe void Decript(ref byte[] data)
         {
-            char[] proba = data.ToCharArray();
+            
 
-            fixed (char* re = &proba[0])
+            fixed (byte* re = &data[0])
             {
-                PCBC_Decript(referenca, re, proba.Length / 2, key);
+                PCBC_Decript(referenca, re, data.Length / 4, key);
             }
 
-            data = new string(proba);
 
         }
 
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern IntPtr CreatePCBC(UInt32* init,int lenght);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void PCBC_Enkript(IntPtr obj, char* v, Int32 n, UInt32[] key);
+        private static unsafe extern void PCBC_Enkript(IntPtr obj, byte* v, Int32 n, UInt32[] key);
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
-        private static unsafe extern void PCBC_Decript(IntPtr obj, char* v, Int32 n, UInt32[] key);
+        private static unsafe extern void PCBC_Decript(IntPtr obj, byte* v, Int32 n, UInt32[] key);
 
         [DllImport("KriptoAlgoritmi.dll", ExactSpelling = false, CallingConvention = CallingConvention.Cdecl)]
         private static unsafe extern void DeletePCBC(out IntPtr obj);
