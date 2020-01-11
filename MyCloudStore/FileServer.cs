@@ -5,14 +5,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Configuration;
 namespace MyCloudStore
 {
     class FileServer : IFileServer
     {
 
 
-        string conStr = "Server=KORISNIK-PC\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";
+        //string conStr = "Server=KORISNIK-PC\\SQLEXPRESS;Database=Zastita;Trusted_Connection=True;";
+        string conStr = Convert.ToString(Properties.Settings.Default.Properties["ConnString"].DefaultValue);
+        // string conStr = ConfigurationManager.ConnectionStrings["Sta"].ConnectionString;
+
         public void DeleteFile(string virtualPath,string username,string password)
         {
             

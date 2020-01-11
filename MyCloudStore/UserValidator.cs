@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyCloudStore
 {
+    //ne koristi se (samo eksperimentalno da se proba nesto)
     class UserValidator : UserNamePasswordValidator
     {
         public override void Validate(string userName, string password)

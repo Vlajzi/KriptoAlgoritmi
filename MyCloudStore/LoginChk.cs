@@ -20,7 +20,8 @@ namespace MyCloudStore
                 return false;
             }
             //string conStr = ConfigurationManager.ConnectionStrings[0].ConnectionString;
-            string conStr = "Server=KORISNIK-PC\\SQLEXPRESS;Trusted_Connection=True;";//treba iz appconfig al me mrzi
+            //string conStr = "Server=KORISNIK-PC\\SQLEXPRESS;Trusted_Connection=True;";//treba iz appconfig al me mrzi
+            string conStr = Convert.ToString(Properties.Settings.Default.Properties["ConnStringDb"].DefaultValue);
 
             SqlConnection con = new SqlConnection(conStr);
             try
